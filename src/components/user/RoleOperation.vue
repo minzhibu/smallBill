@@ -1,0 +1,213 @@
+<template>
+	<div class="authority-operating">
+		<div class="authority-operating-box">
+			<div class="authority-operating-box-row">
+				<span class="authority-operating-box-left">
+					<span class="authority-operating-box-label">
+						<label >
+							角色名称:
+						</label>
+					</span>
+					<el-input
+					  v-model="role.name"
+						class="authority-operating-box-content">
+					</el-input>
+				</span>
+				<span class="authority-operating-box-right">
+					<span class="authority-operating-box-label">
+						<label>
+							角色状态:
+						</label>
+					</span>
+					<el-input
+						v-model="role.state"
+						class="authority-operating-box-content">
+					</el-input>
+				</span>
+			</div>
+			<div class="authority-operating-box-row">
+				<span class="authority-operating-box-left">
+					<span class="authority-operating-box-label">
+						<label >
+							角色权限:
+						</label>
+					</span>
+					<span
+						@click="dialogTableVisible = true">
+						<el-input
+						  :value="roleAuthority"
+							class="authority-operating-box-content"
+							@keydown="noInput"
+							>
+						</el-input>
+					</span>
+				</span>
+			</div>
+			<div class="authority-operating-box-row">
+				<el-row class="bill-button">
+					<el-button 
+						class="bill-button-style" 
+						type="primary">
+						提交
+					</el-button>
+					<el-button 
+						class="bill-button-style"
+						type="info" 
+						@click="userAuthorityclear">
+						清空
+					</el-button>
+				</el-row>
+			</div>
+		</div>
+		<el-dialog 
+			title="节点权限" 
+			width="30%" 
+			:visible.sync="dialogTableVisible">
+			<role-authority-list 
+				:authorityDatas="authorityDatas"
+				:role="role"
+				@close-dialog="closeDialog">
+			</role-authority-list>
+		</el-dialog>
+	</div>
+</template>
+
+<script>
+	import RoleAuthorityList from '@/components/user/RoleAuthorityList.vue'
+	export default{
+		data(){ 
+			return {
+ 				dialogTableVisible: false,
+				roleAuthority: '',
+				authorityDatas:[
+					{
+						jurisdictionName : "首页",
+						isShow : false,
+						labelName : "el-icon-edit",
+						link : "/",
+						childs: [
+						]
+					},
+					{
+						jurisdictionName : "账号管理",
+						isShow : false,
+						labelName : "el-icon-edit",
+						link : "/",
+						childs: [
+							{
+								jurisdictionName: "用户管理",
+								labelName : "el-icon-edit",
+								link : "/",
+							},
+							{
+								jurisdictionName: "角色管理",
+								labelName : "el-icon-edit",
+								link : "/",
+							},
+							{
+								jurisdictionName: "权限管理",
+								labelName : "el-icon-edit",
+								link : "/jurisdiction",
+							}
+						]
+					},
+					{
+						jurisdictionName : "账单管理",
+						isShow : false,
+						labelName : "el-icon-edit",
+						link : "/",
+						childs: [
+							{
+								jurisdictionName: "个人账单",
+								labelName : "el-icon-edit",
+								link : "/personalBill",
+							},
+							{
+								jurisdictionName: "团体账单",
+								labelName : "el-icon-edit",
+								link : "/publicBill",
+							}
+						]
+					},
+					{
+						jurisdictionName : " 统计",
+						isShow : false,
+						labelName : "el-icon-edit",
+						link : "/",
+						childs: [
+							{
+								jurisdictionName: "个人统计",
+								labelName : "el-icon-edit",
+								link : "/",
+							},
+							{
+								jurisdictionName: "团体统计",
+								labelName : "el-icon-edit",
+								link : "/",
+							}
+						]
+					},
+				]
+			}
+		},
+		methods: {
+			//清空
+			userAuthorityclear(){
+			},
+			noInput(){
+				
+			},
+			closeDialog(roleAuthority){
+				this.dialogTableVisible = false;
+				if(roleAuthority !== undefined){
+					this.roleAuthority = roleAuthority;
+				}
+			}
+		},
+		components: {
+			RoleAuthorityList
+		},
+		props: {
+			role: {
+				type: Object,
+			}
+		},
+		computed: {
+		},
+	}
+</script>
+
+<style>
+	.authority-operating{
+		padding: 0.625rem 18%;
+		border-top: solid 0.0625rem #808080;
+	}
+	.authority-operating-box{
+		padding: 1.25rem 9%;
+		color: #808080;
+		font-size: 16px;
+		box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+		border-radius: 0.625rem;
+	}
+	.authority-operating-box-content{
+		width: 34%;
+	}
+	.authority-operating-box-left{
+	}
+	.authority-operating-box-right{
+		margin-left: 9%;
+	}
+	.authority-operating-box-label{
+		width: 11%;
+		display: inline-block;
+	}
+	.authority-operating-box-row{
+		margin-bottom: 1.25rem;
+	}
+	.bill-button{
+		padding: 0.9375rem 0rem 0rem 40%;
+	}
+	.bill-button-style{
+		width: 16%;
+	}
+</style>

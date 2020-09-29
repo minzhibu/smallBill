@@ -23,6 +23,7 @@
 <script>
 	import UserAuthorityList from '@/components/user/UserAuthorityList.vue';
 	import UserAuthorityOperation from '@/components/user/UserAuthorityOperation.vue';
+	import {jurisdictionList,jurisdictionInsert,jurisdictionUpdate,jurisdictionDelete} from '@/api/user/JurisdictionInformationApi.js'
 	export default{
 		data() { 
 			return {
@@ -84,14 +85,12 @@
 				let promise;
 				if(arr[1] === undefined){
 					if(this.authorityDatas[arr[0]].childs.length === 0){
-						let url = '/jurisdictionInformation/' + this.authorityDatas[arr[0]].id;
-						promise = this.$axios.delete(url);
+						promise = jurisdictionDelete(this.authorityDatas[arr[0]].id);
 					}else{
 						alert("存在子节点不能删除");
 					}
 				}else{
-					let url = '/jurisdictionInformation/' + this.authorityDatas[arr[0]].childs[arr[1]].id;
-					promise = this.$axios.delete(url);
+					promise = jurisdictionDelete(this.authorityDatas[arr[0]].childs[arr[1]].id);
 				}
 				if(promise){
 					promise.then(response => {
@@ -126,7 +125,7 @@
 				//新建
 				let promise;
 				if(this.authorityOperatingData.id === ""){
-					promise = this.$axios.post('/jurisdictionInformation/',{
+					promise = jurisdictionInsert({
 							id: this.authorityOperatingData.id,
 							parentNodeId : this.authorityOperatingData.parentId,
 							jurisdictionName: this.authorityOperatingData.jurisdictionName,
@@ -137,8 +136,7 @@
 					})
 				//修改
 				}else{
-					let url = '/jurisdictionInformation/' + this.authorityOperatingData.id;
-					promise = this.$axios.put(url,{
+					promise = jurisdictionUpdate(this.authorityOperatingData.id,{
 							id: this.authorityOperatingData.id,
 							parentNodeId : this.authorityOperatingData.parentId,
 							jurisdictionName: this.authorityOperatingData.jurisdictionName,
@@ -149,6 +147,7 @@
 					})
 				}
 				promise.then(response => {
+					console.log(response.data);
 						if(response.data.code === 200){
 							alert("操作成功!");
 							//清空输入框
@@ -160,7 +159,7 @@
 			},
 			//请求数据
 			getAll(){
-				this.$axios.get('/jurisdictionInformation/').then(response =>{
+				jurisdictionList().then(response =>{
 					if(response.data){
 						if(response.data.code === 200){
 							this.authorityDatas = response.data.data;

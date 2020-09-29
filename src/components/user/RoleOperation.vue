@@ -21,7 +21,9 @@
 					</span>
 					<el-input
 						v-model="role.state"
-						class="authority-operating-box-content">
+						class="authority-operating-box-content"
+						type="number"
+						maxlength="1">
 					</el-input>
 				</span>
 			</div>
@@ -47,7 +49,8 @@
 				<el-row class="bill-button">
 					<el-button 
 						class="bill-button-style" 
-						type="primary">
+						type="primary"
+						@click="commit">
 						提交
 					</el-button>
 					<el-button 
@@ -64,9 +67,11 @@
 			width="30%" 
 			:visible.sync="dialogTableVisible">
 			<role-authority-list 
-				:authorityDatas="authorityDatas"
+				:authorityDatas="role.authorityDatas"
 				:role="role"
-				@close-dialog="closeDialog">
+				:authoritys="role.authoritys"
+				@close-dialog="closeDialog"
+				@commit-dialog="commitDialog">
 			</role-authority-list>
 		</el-dialog>
 	</div>
@@ -78,76 +83,6 @@
 		data(){ 
 			return {
  				dialogTableVisible: false,
-				roleAuthority: '',
-				authorityDatas:[
-					{
-						jurisdictionName : "首页",
-						isShow : false,
-						labelName : "el-icon-edit",
-						link : "/",
-						childs: [
-						]
-					},
-					{
-						jurisdictionName : "账号管理",
-						isShow : false,
-						labelName : "el-icon-edit",
-						link : "/",
-						childs: [
-							{
-								jurisdictionName: "用户管理",
-								labelName : "el-icon-edit",
-								link : "/",
-							},
-							{
-								jurisdictionName: "角色管理",
-								labelName : "el-icon-edit",
-								link : "/",
-							},
-							{
-								jurisdictionName: "权限管理",
-								labelName : "el-icon-edit",
-								link : "/jurisdiction",
-							}
-						]
-					},
-					{
-						jurisdictionName : "账单管理",
-						isShow : false,
-						labelName : "el-icon-edit",
-						link : "/",
-						childs: [
-							{
-								jurisdictionName: "个人账单",
-								labelName : "el-icon-edit",
-								link : "/personalBill",
-							},
-							{
-								jurisdictionName: "团体账单",
-								labelName : "el-icon-edit",
-								link : "/publicBill",
-							}
-						]
-					},
-					{
-						jurisdictionName : " 统计",
-						isShow : false,
-						labelName : "el-icon-edit",
-						link : "/",
-						childs: [
-							{
-								jurisdictionName: "个人统计",
-								labelName : "el-icon-edit",
-								link : "/",
-							},
-							{
-								jurisdictionName: "团体统计",
-								labelName : "el-icon-edit",
-								link : "/",
-							}
-						]
-					},
-				]
 			}
 		},
 		methods: {
@@ -157,11 +92,14 @@
 			noInput(){
 				
 			},
-			closeDialog(roleAuthority){
+			closeDialog(){
 				this.dialogTableVisible = false;
-				if(roleAuthority !== undefined){
-					this.roleAuthority = roleAuthority;
-				}
+			},
+			commitDialog(){
+				this.dialogTableVisible = false;
+			},
+			commit(){
+				this.$emit('role-commit');
 			}
 		},
 		components: {
@@ -173,6 +111,25 @@
 			}
 		},
 		computed: {
+			//选中了那些权限
+			roleAuthority: function(){
+				let result = '';
+				let authoritys = this.role.authoritys;
+				if(authoritys.length != 0){
+					for(let i = 0; i < authoritys.length; i++) {
+						if(authoritys[i].isSelect){
+							result += authoritys[i].name + ',';
+							let childs = authoritys[i].childs;
+							for(let j = 0; j < childs.length; j++) {
+								if(childs[j].isSelect){
+									result += childs[j].name + ',';
+								}
+							}
+						}
+					}
+				}
+				return result;
+			}
 		},
 	}
 </script>

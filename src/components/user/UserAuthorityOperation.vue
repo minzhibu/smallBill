@@ -62,7 +62,7 @@
 					<el-input
 						placeholder="数值越小,越优先"
 						class="authority-operating-box-content"
-						maxlength="8"
+						maxlength="5"
 						type="number"
 						v-model="authorityOperatingData.priority">
 					</el-input>

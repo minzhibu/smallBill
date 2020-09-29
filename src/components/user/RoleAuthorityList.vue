@@ -54,7 +54,7 @@
 										二级节点 
 									</td>
 									<td>
-										{{datas.jurisdictionName}}
+										{{data.jurisdictionName}}
 									</td>
 									<td>
 										<div 
@@ -71,23 +71,15 @@
 						</template>
 					</template>
 				</table>
-				
 			</div>
 		</div>
 		<div style="padding-left: 75%;">
-			<el-button
-				class="sjm_left_button"
-				type="success" 
-				plain size="small"
-				@click.stop="commitRole">
-				提交
-			</el-button>
 			<el-button 
 			class="sjm_left_button"
 				type="danger" 
 				plain size="small"
 				@click.stop="closeDialog">
-				取消
+				关闭
 			</el-button>
 		</div>
 	</div>
@@ -98,7 +90,6 @@
 		data(){
 			return {
 				initIshowChild: [],
-				authoritys: [],
 			}
 		},
 		methods: {
@@ -107,24 +98,6 @@
 			},
 			closeDialog(){
 				this.$emit('close-dialog');
-			},
-			commitRole(){
-				let result = '';
-				let authoritys = this.role.authoritys;
-				if(authoritys.length != 0){
-					for(let i = 0; i < authoritys.length; i++) {
-						if(authoritys[i].isSelect){
-							result += authoritys[i].name + ',';
-							let childs = authoritys[i].childs;
-							for(let j = 0; j < childs.length; j++) {
-								if(childs[j].isSelect){
-									result += childs[j].name + ',';
-								}
-							}
-						}
-					}
-				}
-				this.$emit('close-dialog',result);
 			},
 			//判断子节点是否全部选中了
 			isSelectAll(index){
@@ -177,20 +150,6 @@
 				}else{
 					this.initIshowChild.push(false);
 				}
-				let authority = new Object();
-				authority.name = this.authorityDatas[i].jurisdictionName;
-				authority.id = "1";
-				authority.isSelect = false;
-				authority.childs = [];
-				for(let j = 0; j < this.authorityDatas[i].childs.length; j++) {
-					let child = this.authorityDatas[i].childs[j];
-					let authorityChild = new Object();
-					authorityChild.name = child.jurisdictionName;
-					authorityChild.id = "1";
-					authorityChild.isSelect = false;
-					authority.childs.push(authorityChild);
-				}
-				this.role.authoritys.push(authority);
 			}
 		},
 		props: {
@@ -202,6 +161,9 @@
 			},
 			role: {
 				type: Object
+			},
+			authoritys: {
+				type: Array
 			}
 		}
 	}

@@ -29,3 +29,4 @@ export function jurisdictionDelete(id){
 		method: "delete"
 	})
 }
+

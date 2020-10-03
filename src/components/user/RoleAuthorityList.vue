@@ -79,6 +79,13 @@
 				type="danger" 
 				plain size="small"
 				@click.stop="closeDialog">
+				确定
+			</el-button>
+			<el-button
+			class="sjm_left_button"
+				type="danger" 
+				plain size="small"
+				@click.stop="closeDialog">
 				关闭
 			</el-button>
 		</div>

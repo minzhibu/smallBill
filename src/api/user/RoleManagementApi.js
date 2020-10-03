@@ -17,9 +17,10 @@ export function roleInsert(data){
 	})
 }
 //修改
-export function roleUpdate(data){
+export function roleUpdate(id,data){
+	console.log(data);
 	return request({
-		url: '/role/',
+		url: '/role/'+id,
 		method: 'put',
 		data: data
 	})
@@ -31,10 +32,10 @@ export function roleDelete(id){
 		method: 'delete',
 	})
 }
-
+//根据角色的id来查询角色权限
 export function selectByIdToJurisdiction(id){
 	return request({
-		url: '/role/' + id,
+		url: '/role/selectByIdToJurisdiction/' + id,
 		method: 'get',
 	})
 }

@@ -3,9 +3,11 @@
 		class="billBackground" >
 		<role-list 
 			:roleDates="roles"
+			:pageObject="pageObject"
 			@add-authority-node="addAuthorityNode"
 			@delete-authority-node="deleteAuthorityNode"
-			@update-authority-node="updateAuthorityNode">
+			@update-authority-node="updateAuthorityNode"
+			@click-page="clickPage">
 		</role-list>
 		<role-operation 
 			:role="role"
@@ -42,13 +44,14 @@
 					authorityDatas:[],
 					authoritys:[],
 				},
-				//权限
+				//分页的参数
+				pageObject: {},
 				
 			}
 		},
 		components: {
 			RoleList,
-			RoleOperation
+			RoleOperation,
 		},
 		created(){
 			this.selectByPage(1,7);
@@ -117,7 +120,6 @@
 					promise = roleInsert(data)
 				//修改
 				}else{
-					console.log("??");
 					promise = roleUpdate(this.role.id,data);
 				}
 				if(promise){
@@ -132,7 +134,12 @@
 			selectByPage(page,size){
 				selectList(page,size).then(response => {
 					this.roles = response.data.data.questions;
+					this.pageObject = response.data.data;
 				})
+			},
+			//分页条点击
+			clickPage(page){
+				this.selectByPage(page,7);
 			},
 			//删除角色
 			deleteAuthorityNode(index){

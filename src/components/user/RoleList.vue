@@ -50,11 +50,18 @@
 					</template>
 				</table>
 			</div>
+			<!-- 引入分页 -->
+			<bill-page 
+			 :pageObject="pageObject"
+				class="bill-role-page"
+				@click-page="clickPage">
+			</bill-page>
 		</div>
 	</div>
 </template>
 
 <script>
+	import BillPage from '@/components/common/BillPage.vue';
 	export default{
 		data(){
 			return {
@@ -76,15 +83,23 @@
 			//删除角色
 			deleteRole(index){
 				this.$emit('delete-authority-node',index);
+			},
+			//分页查询
+			clickPage(page){
+				this.$emit("click-page",page);
 			}
 		},
-		compoents: {
+		components: {
+			BillPage,
 		},
 		mounted(){
 		},
 		props: { 
 			roleDates: {
 				type: Array
+			},
+			pageObject:{
+				type: Object
 			}
 		}
 	}
@@ -94,11 +109,13 @@
 	.box{
 		position: relative; 
 		border-radius: 3px;
+		overflow: auto;
 		background: #ffffff;
 		border-top: 3px solid #d2d6de;
 		margin-bottom: 1.5625rem;
 		width: 100%;
 		box-shadow: 0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.1);
+		padding-bottom: 15px;
 	}
 	.box-header{
 		padding: 0.9375rem;
@@ -126,5 +143,11 @@
 	}
 	.box-table th{
 		height: 2.5rem;
+	}
+	.bill-role-page{
+		float: right;
+		margin-right: 0.9375rem;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
 	}
 </style>

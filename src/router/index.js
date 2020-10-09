@@ -11,32 +11,29 @@ Vue.use(VueRouter)
     component: Home,
 		children: [
 					{
-						// 当 /profile 匹配成功，
-						// UserProfile 会被渲染在 User 的 <router-view> 中
 						path: 'publicBill',
 						name: "publicBill",
 						component: () => import(/* webpackChunkName: "about" */ '@/views/bill/PublicBill.vue')
 					},
 					{
-						// 当 /profile 匹配成功，
-						// UserProfile 会被渲染在 User 的 <router-view> 中
 						path: 'personalBill',
 						name: "personalBill",
 						component: () => import(/* webpackChunkName: "about" */ '@/views/bill/PersonalBill.vue')
 					},
 					{
-						// 当 /profile 匹配成功，
-						// UserProfile 会被渲染在 User 的 <router-view> 中
 						path: 'jurisdiction',
 						name: "jurisdiction",
 						component: () => import(/* webpackChunkName: "about" */ '@/views/user/JurisdictionInformation.vue')
 					},
 					{
-						// 当 /profile 匹配成功，
-						// UserProfile 会被渲染在 User 的 <router-view> 中
-						path: 'roleList',
-						name: "roleList",
+						path: 'role',
+						name: "role",
 						component: () => import(/* webpackChunkName: "about" */ '@/views/user/RoleManagement.vue')
+					},
+					{
+						path: 'user',
+						name: "user",
+						component: () => import(/* webpackChunkName: "about" */ '@/views/user/UserManagement.vue')
 					}
 				]
 	},

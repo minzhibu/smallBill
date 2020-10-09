@@ -71,12 +71,12 @@
 								{
 									jurisdictionName: "用户管理",
 									labelName : "el-icon-edit",
-									link : "/",
+									link : "/user",
 								},
 								{
 									jurisdictionName: "角色管理",
 									labelName : "el-icon-edit",
-									link : "/roleList",
+									link : "/role",
 								},
 								{
 									jurisdictionName: "权限管理",

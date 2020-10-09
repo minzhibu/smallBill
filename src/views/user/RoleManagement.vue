@@ -22,7 +22,7 @@
 	import RoleOperation from '@/components/user/RoleOperation.vue';
 	import {selectList,roleInsert,roleDelete,selectByIdToJurisdiction,roleUpdate} from '@/api/user/RoleManagementApi.js';
 	import {jurisdictionList} from '@/api/user/JurisdictionInformationApi.js'
-	export default{
+	export default {
 		data(){
 			return {
 				//列表展示的数据

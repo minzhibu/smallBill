@@ -111,25 +111,6 @@
 			}
 		},
 		computed: {
-			//选中了那些权限
-			roleAuthority: function(){
-				let result = '';
-				let authoritys = this.role.authoritys;
-				if(authoritys.length != 0){
-					for(let i = 0; i < authoritys.length; i++) {
-						if(authoritys[i].isSelect){
-							result += authoritys[i].name + ',';
-							let childs = authoritys[i].childs;
-							for(let j = 0; j < childs.length; j++) {
-								if(childs[j].isSelect){
-									result += childs[j].name + ',';
-								}
-							}
-						}
-					}
-				}
-				return result;
-			}
 		},
 	}
 </script>

@@ -69,30 +69,6 @@
 	export default{
 		data(){
 			return {
-				users :[
-					{
-						id: '1',
-						userName: 'sjm',
-						accountNumber: '321261949',
-						imgAddress: 'abc',
-						state: '1',
-						createTime: '',
-						updateTime: '',
-						defaultUser: '1',
-						ext1: ''
-					},
-					{
-						id: '2',
-						userName: 'lfh',
-						accountNumber: '123456',
-						imgAddress: 'as',
-						state: '1',
-						createTime: '',
-						updateTime: '',
-						defaultUser: '1',
-						ext1: ''
-					}
-				]
 			}
 		},
 		methods: {
@@ -111,6 +87,9 @@
 		mounted(){
 		},
 		props: { 
+			users: {
+				type: Array
+			}
 		}
 	}
 </script>

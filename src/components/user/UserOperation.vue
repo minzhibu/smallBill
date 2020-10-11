@@ -5,22 +5,22 @@
 				<span class="authority-operating-box-left">
 					<span class="authority-operating-box-label">
 						<label >
-							角色名称:
+							用户名称:
 						</label>
 					</span>
 					<el-input
-					  v-model="role.name"
+					  v-model="user.userName"
 						class="authority-operating-box-content">
 					</el-input>
 				</span>
 				<span class="authority-operating-box-right">
 					<span class="authority-operating-box-label">
 						<label>
-							角色状态:
+							用户账号:
 						</label>
 					</span>
 					<el-input
-						v-model="role.state"
+						v-model="user.accountNumber"
 						class="authority-operating-box-content"
 						type="number"
 						maxlength="1">
@@ -31,18 +31,47 @@
 				<span class="authority-operating-box-left">
 					<span class="authority-operating-box-label">
 						<label >
-							角色权限:
+							用户密码:
 						</label>
 					</span>
-					<span
-						@click="dialogTableVisible = true">
-						<el-input
-						  :value="roleAuthority"
-							class="authority-operating-box-content"
-							@keydown="noInput"
-							>
-						</el-input>
+					<el-input
+					  v-model="user.password"
+						class="authority-operating-box-content">
+					</el-input>
+				</span>
+				<span class="authority-operating-box-right">
+					<span class="authority-operating-box-label">
+						<label>
+							用户头像:
+						</label>
 					</span>
+					<el-input
+						v-model="user.imgAddress"
+						class="authority-operating-box-content"
+						type="number"
+						maxlength="1">
+					</el-input>
+				</span>
+			</div>
+			<div class="authority-operating-box-row">
+				<span class="authority-operating-box-left">
+					<span class="authority-operating-box-label">
+						<label >
+							用户状态:
+						</label>
+					</span>
+					<el-input
+					  v-model="user.state"
+						class="authority-operating-box-content">
+					</el-input>
+				</span>
+				<span class="authority-operating-box-right">
+					<span class="authority-operating-box-label">
+						<label>
+							用户角色:
+						</label>
+					</span>
+					
 				</span>
 			</div>
 			<div class="authority-operating-box-row">

@@ -17,7 +17,7 @@
 								type="primary" 
 								plain size="small"
 								@click.stop="addRole(-1)">
-								增加角色
+								增加用户
 							</el-button>
 						</th>
 					</tr>
@@ -55,11 +55,11 @@
 				</table>
 			</div>
 			<!-- 引入分页 -->
-			<!-- <bill-page 
+			<bill-page 
 			 :pageObject="pageObject"
 				class="bill-role-page"
 				@click-page="clickPage">
-			</bill-page> -->
+			</bill-page>
 		</div>
 	</div>
 </template>
@@ -79,6 +79,9 @@
 			//刪除
 			deleteUser(index){
 				
+			},
+			clickPage(page){
+				this.$emit("click-page",page);
 			}
 		},
 		components: {
@@ -89,6 +92,9 @@
 		props: { 
 			users: {
 				type: Array
+			},
+			pageObject: {
+				type: Object
 			}
 		}
 	}

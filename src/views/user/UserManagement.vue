@@ -2,9 +2,13 @@
 	<div
 		class="billBackground">
 		<user-list
-			:users="users">
+			:users="users"
+			:pageObject="pageObject"
+			@click-page="clickPage">
 		</user-list>
-		<user-operation></user-operation>
+		<user-operation
+			>
+		</user-operation>
 	</div>
 </template>
 
@@ -17,15 +21,20 @@
 			return {
 				users: [],
 				pageObject: {},
+				user:{
+					
+				}
 			}
 		},
 		methods: {
 			selectByPage(page,size){
 				selectList(page,size).then(response => {
-					console.log(response.data.data);
 					this.users = response.data.data.questions;
 					this.pageObject = response.data.data;
 				})
+			},
+			clickPage(page){
+				this.selectByPage(page,2);
 			}
 		},
 		components: {

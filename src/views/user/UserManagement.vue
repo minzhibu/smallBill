@@ -68,7 +68,6 @@
 					return;
 				}
 				let data = {
-					file : this.imageFile,
 					id: this.user.id,
 					userName: this.user.userName,
 					accountNumber: this.user.accountNumber,

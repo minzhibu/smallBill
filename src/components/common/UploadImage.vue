@@ -38,15 +38,11 @@
 					param.append('file',files[0]);
 					uploadImageApi(param).then(response => {
 						console.log(response);
+						than.billUploadImage = "/api" + response.data;
+					}).catch(error => {
+						console.log(error);
 					})
-					//let formData = new FormData();
-					//formData.append("img",files[0]);
-					// this.$emit('upload_image',files[0]);
-					// let reader = new FileReader();
-					// reader.readAsDataURL(files[0]);
-					// reader.onload = function(e){
-					// 	than.billUploadImage = e.target.result;
-					// }
+					//this.$emit('upload_image',files[0]);
 				}
 			},
 			clickUpload(than){

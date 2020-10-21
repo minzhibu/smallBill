@@ -21,6 +21,7 @@
 </template>
 
 <script>
+	import {uploadImageApi} from "@/api/upload/uploadFile.js"
 	export default({
 		data(){
 			return {
@@ -33,14 +34,19 @@
 				let than = this;
 				var files = event.currentTarget.files;
 				if(files.length != 0){
+					let param = new FormData();
+					param.append('file',files[0]);
+					uploadImageApi(param).then(response => {
+						console.log(response);
+					})
 					//let formData = new FormData();
 					//formData.append("img",files[0]);
-					this.$emit('upload_image',files[0]);
-					let reader = new FileReader();
-					reader.readAsDataURL(files[0]);
-					reader.onload = function(e){
-						than.billUploadImage = e.target.result;
-					}
+					// this.$emit('upload_image',files[0]);
+					// let reader = new FileReader();
+					// reader.readAsDataURL(files[0]);
+					// reader.onload = function(e){
+					// 	than.billUploadImage = e.target.result;
+					// }
 				}
 			},
 			clickUpload(than){

@@ -41,20 +41,26 @@
 				</span>
 				<span class="authority-operating-box-right">
 					<span class="authority-operating-box-label">
+						
 						<label>
-							用户头像:
+							用户角色:
 						</label>
 					</span>
-					<el-input
-						v-model="user.imgAddress"
-						class="authority-operating-box-content"
-						type="number"
-						maxlength="1">
-					</el-input>
 				</span>
 			</div>
 			<div class="authority-operating-box-row">
 				<span class="authority-operating-box-left">
+					<span class="authority-operating-box-label">
+						<label>
+							用户头像:
+						</label>
+					</span>
+					<div style="width: 34%; display: inline-block;">
+						<upload-image
+							@upload_image="uploadImage"></upload-image>
+					</div>
+				</span>
+				<span class="authority-operating-box-right">
 					<span class="authority-operating-box-label">
 						<label >
 							用户状态:
@@ -64,14 +70,6 @@
 					  v-model="user.state"
 						class="authority-operating-box-content">
 					</el-input>
-				</span>
-				<span class="authority-operating-box-right">
-					<span class="authority-operating-box-label">
-						<label>
-							用户角色:
-						</label>
-					</span>
-					
 				</span>
 			</div>
 			<div class="authority-operating-box-row">
@@ -91,23 +89,12 @@
 				</el-row>
 			</div>
 		</div>
-		<el-dialog 
-			title="节点权限" 
-			width="30%" 
-			:visible.sync="dialogTableVisible">
-			<role-authority-list 
-				:authorityDatas="role.authorityDatas"
-				:role="role"
-				:authoritys="role.authoritys"
-				@close-dialog="closeDialog"
-				@commit-dialog="commitDialog">
-			</role-authority-list>
-		</el-dialog>
 	</div>
 </template>
 
 <script>
 	import RoleAuthorityList from '@/components/user/RoleAuthorityList.vue'
+	import UploadImage from '@/components/common/UploadImage.vue'
 	export default{
 		data(){ 
 			return {
@@ -128,14 +115,20 @@
 				this.dialogTableVisible = false;
 			},
 			commit(){
-				this.$emit('role-commit');
+				console.log("??");
+				this.$emit('user-commit');
+			},
+			//图片
+			uploadImage(image){
+				this.$emit("upload-image",image);
 			}
 		},
 		components: {
-			RoleAuthorityList
+			RoleAuthorityList,
+			UploadImage
 		},
 		props: {
-			role: {
+			user: {
 				type: Object,
 			}
 		},

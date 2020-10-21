@@ -13,7 +13,8 @@ export function userInsert(data){
 	return request({
 		url: '/user/',
 		method: 'post',
-		data: data
+		data: data,
+		headers: {'Content-Type': 'multipart/form-data'}
 	})
 }
 //修改

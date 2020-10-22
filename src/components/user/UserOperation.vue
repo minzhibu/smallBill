@@ -41,10 +41,17 @@
 				</span>
 				<span class="authority-operating-box-right">
 					<span class="authority-operating-box-label">
-						
 						<label>
 							用户角色:
 						</label>
+					</span>
+					<span
+						@click="dialogTableVisible = true">
+						<el-input
+							class="authority-operating-box-content"
+							@keydown="noInput"
+							>
+						</el-input>
 					</span>
 				</span>
 			</div>
@@ -87,13 +94,25 @@
 						清空
 					</el-button>
 				</el-row>
+				
+				<el-dialog
+					title="节点权限" 
+					width="30%" 
+					:visible.sync="dialogTableVisible">
+					<div style="height: 400px">
+						<user-role-list
+							@close-dialog="closeDialog"
+							@commit-dialog="commitDialog">
+						</user-role-list>
+					</div>
+				</el-dialog>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	import RoleAuthorityList from '@/components/user/RoleAuthorityList.vue'
+	import UserRoleList from '@/components/user/UserRoleList.vue'
 	import UploadImage from '@/components/common/UploadImage.vue'
 	export default{
 		data(){ 
@@ -124,8 +143,8 @@
 			}
 		},
 		components: {
-			RoleAuthorityList,
-			UploadImage
+			UploadImage,
+			UserRoleList,
 		},
 		props: {
 			user: {

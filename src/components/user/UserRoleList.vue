@@ -89,7 +89,13 @@
 				this.$emit('close-dialog');
 			},
 			commitDialog(){
-				this.$emit('commit-dialog');
+				let selectRoleId = [];
+				for(let key in this.selectRoles){
+					if(this.selectRoles[key]){
+						selectRoleId.push(key);
+					}
+				}
+				this.$emit('commit-dialog',selectRoleId); 
 			},
 			sjmChecked(id){
 				if(this.selectRoles[id] === undefined){

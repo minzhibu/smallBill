@@ -39,10 +39,11 @@
 					uploadImageApi(param).then(response => {
 						console.log(response);
 						than.billUploadImage = "/api" + response.data;
+						this.$emit('upload_image',response.data);
 					}).catch(error => {
 						console.log(error);
 					})
-					//this.$emit('upload_image',files[0]);
+					
 				}
 			},
 			clickUpload(than){
@@ -58,8 +59,6 @@
 					parent.childNodes[1].click();
 					//your code
 				}, 500);
-
-				
 			},
 			showImage(){
 				clearTimeout(this.timeClean);//clear双击中的第一次单击事件。

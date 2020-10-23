@@ -64,7 +64,7 @@
 					</span>
 					<div style="width: 34%; display: inline-block;">
 						<upload-image
-							@upload_image="uploadImage"></upload-image>
+							@upload_image="upLoadImage"></upload-image>
 					</div>
 				</span>
 				<span class="authority-operating-box-right">
@@ -130,15 +130,17 @@
 			closeDialog(){
 				this.dialogTableVisible = false;
 			},
-			commitDialog(){
-				this.dialogTableVisible = false;
+			commitDialog(selectRoleId){
+				this.$emit("select-role",selectRoleId);
+				//this.dialogTableVisible = false;
 			},
 			commit(){
 				console.log("??");
 				this.$emit('user-commit');
 			},
 			//图片
-			uploadImage(image){
+			upLoadImage(image){
+				console.log(image);
 				this.$emit("upload-image",image);
 			}
 		},

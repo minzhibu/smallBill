@@ -9,6 +9,7 @@
 		<user-operation
 			:user="user"
 			@upload-image="uploadImage"
+			@select-role="selectRole"
 			@user-commit="userCommit">
 		</user-operation>
 	</div>
@@ -33,6 +34,7 @@
 					
 				},
 				imageFile: '', 
+				selectRoleIds: [],
 			}
 		},
 		methods: {
@@ -48,10 +50,14 @@
 			//上传图片
 			uploadImage(image){
 				console.log(image);
-				this.imageFile = image;
+				this.user.imgAddress = image;
+			},
+			selectRole(selectRoleId){
+				this.selectRoleIds = selectRoleId;
+				console.log(this.selectRoleIds);
 			},
 			userCommit(){
-				if(this.imageFile == "" && this.user.imgAddress){
+				if(!this.user.imgAddress){
 					alert("请设置用户头像");
 					return;
 				}
@@ -74,6 +80,7 @@
 					password: this.user.password,
 					imgAddress: this.user.imgAddress,
 					state: this.user.state,
+					roleIdS: this.selectRoleIds
 				}
 				let promise;
 				//新建

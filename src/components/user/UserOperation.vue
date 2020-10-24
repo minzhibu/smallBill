@@ -46,9 +46,10 @@
 						</label>
 					</span>
 					<span
-						@click="dialogTableVisible = true">
+						@click="openDialog">
 						<el-input
 							class="authority-operating-box-content"
+							:value="userRole"
 							@keydown="noInput"
 							>
 						</el-input>
@@ -64,7 +65,8 @@
 					</span>
 					<div style="width: 34%; display: inline-block;">
 						<upload-image
-							@upload_image="upLoadImage"></upload-image>
+							@upload_image="upLoadImage"
+							:billUploadImage="user.imgAddress"></upload-image>
 					</div>
 				</span>
 				<span class="authority-operating-box-right">
@@ -102,7 +104,8 @@
 					<div style="height: 400px">
 						<user-role-list
 							@close-dialog="closeDialog"
-							@commit-dialog="commitDialog">
+							@commit-dialog="commitDialog"
+							@commit-select-role="commitSelectRole">
 						</user-role-list>
 					</div>
 				</el-dialog>
@@ -118,6 +121,7 @@
 		data(){ 
 			return {
  				dialogTableVisible: false,
+				userRole: "",
 			}
 		},
 		methods: {
@@ -132,16 +136,27 @@
 			},
 			commitDialog(selectRoleId){
 				this.$emit("select-role",selectRoleId);
+				this.dialogTableVisible = false;
 				//this.dialogTableVisible = false;
 			},
 			commit(){
-				console.log("??");
 				this.$emit('user-commit');
 			},
 			//图片
 			upLoadImage(image){
 				console.log(image);
 				this.$emit("upload-image",image);
+			},
+			commitSelectRole(selectRoleNameList){
+				console.log(selectRoleNameList);
+				this.userRole = "";
+				for(let i = 0; i < selectRoleNameList.length; i++){
+					this.userRole += selectRoleNameList[i] + ",";
+				}
+			},
+			openDialog(){
+				console.log(this.user.id);
+				this.dialogTableVisible = true
 			}
 		},
 		components: {

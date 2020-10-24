@@ -4,14 +4,19 @@
 		<user-list
 			:users="users"
 			:pageObject="pageObject"
-			@click-page="clickPage">
+			@add-user="addUser"
+			@click-page="clickPage"
+			@update-user="updateUser">
 		</user-list>
-		<user-operation
-			:user="user"
-			@upload-image="uploadImage"
-			@select-role="selectRole"
-			@user-commit="userCommit">
-		</user-operation>
+		<template
+			v-if="isShowOperation">
+			<user-operation
+				:user="user"
+				@upload-image="uploadImage"
+				@select-role="selectRole"
+				@user-commit="userCommit">
+			</user-operation>
+		</template>
 	</div>
 </template>
 
@@ -33,8 +38,8 @@
 					state: '',
 					
 				},
-				imageFile: '', 
 				selectRoleIds: [],
+				isShowOperation: false,
 			}
 		},
 		methods: {
@@ -46,6 +51,16 @@
 			},
 			clickPage(page){
 				this.selectByPage(page,2);
+			},
+			addUser(){
+				this.isShowOperation = true;
+				this.user.id = "";
+				this.user.userName = "";
+				this.user.accountNumber = "";
+				this.user.password = "";
+				this.user.imgAddress = "";
+				this.user.state = "";
+				this.selectRoleIds = [];
 			},
 			//上传图片
 			uploadImage(image){
@@ -94,8 +109,20 @@
 				if(promise != null){
 					promise.then(response => {
 						console.log(response);
+						alert("新建成功");
+						clickPage(1);
+						isShowOperation = false;
 					})
 				}
+			},
+			updateUser(user){
+				this.isShowOperation = true;
+				this.user.id = user.id;
+				this.user.userName = user.userName;
+				this.user.accountNumber = user.accountNumber;
+				this.user.password =user.password;
+				this.user.imgAddress = user.imgAddress;
+				this.user.state = user.state;
 			}
 		},
 		components: {

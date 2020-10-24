@@ -16,7 +16,7 @@
 							<el-button
 								type="primary" 
 								plain size="small"
-								@click.stop="addRole(-1)">
+								@click.stop="addUser(-1)">
 								增加用户
 							</el-button>
 						</th>
@@ -41,13 +41,13 @@
 							<el-button
 								type="success" 
 								plain size="small"
-								@click.stop="updateUser(index)">
+								@click.stop="updateUser(user)">
 								修改
 							</el-button>
 							<el-button 
 								type="danger" 
 								plain size="small"
-								@click.stop="deleteUser(index)">
+								@click.stop="deleteUser(user.id)">
 								删除
 							</el-button>
 						</td>
@@ -73,8 +73,8 @@
 		},
 		methods: {
 			//修改
-			updateUser(index){
-				
+			updateUser(user){
+				this.$emit('update-user',user);
 			},
 			//刪除
 			deleteUser(index){
@@ -82,6 +82,9 @@
 			},
 			clickPage(page){
 				this.$emit("click-page",page);
+			},
+			addUser(){
+				this.$emit("add-user");
 			}
 		},
 		components: {

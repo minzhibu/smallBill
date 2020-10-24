@@ -22,7 +22,7 @@
 					<template v-for="(role ,index) in roleDates">
 						<tr 
 							:key="'parent-' + index"
-							@click="showChild(index)">
+							>
 							<td>
 								{{role.roleName}}
 							</td>
@@ -30,7 +30,7 @@
 								<div
 									class="sjm_checked"
 									:class="{'sjm_are_checked' : selectRoles[role.id]}"
-									@click.stop="sjmChecked(role.id)">
+									@click.stop="sjmChecked(role.id,role.roleName)">
 									<template v-if="selectRoles[role.id]">
 										<i class="el-icon-check"></i>
 									</template>
@@ -75,6 +75,7 @@
 				roleDates: [],
 				pageObject: {},
 				selectRoles: {},
+				selectRolesName: {},
 			}
 		},
 		methods: {
@@ -90,28 +91,40 @@
 			},
 			commitDialog(){
 				let selectRoleId = [];
+				let selectRoleNames = [];
 				for(let key in this.selectRoles){
 					if(this.selectRoles[key]){
 						selectRoleId.push(key);
 					}
 				}
+				for(let key in this.selectRolesName){
+					if(this.selectRolesName[key]){
+						selectRoleNames.push(key);
+					}
+				}
 				this.$emit('commit-dialog',selectRoleId); 
+				this.$emit('commit-select-role',selectRoleNames);
 			},
-			sjmChecked(id){
+			sjmChecked(id,name){
 				if(this.selectRoles[id] === undefined){
 					this.$set(this.selectRoles,id,true);
+					this.$set(this.selectRolesName,name,true);
 					return;
 				}
 				this.selectRoles[id] = !this.selectRoles[id];
+				this.selectRolesName[name] = !this.selectRolesName[name];
 			},
 			checkAll(){
 				let isSelectAll = !this.selectAll();
 				for(let i = 0; i < this.roleDates.length; i++){
 					let id = this.roleDates[i].id;
+					let name = this.roleDates[i].roleName;
 					if(this.selectRoles[id] === undefined){
 						this.$set(this.selectRoles,id,true);
+						this.$set(this.selectRolesName,name,true);
 					}else{
 						this.selectRoles[id] = isSelectAll;
+						this.selectRolesName[name] = isSelectAll; 
 					}
 				}
 			},

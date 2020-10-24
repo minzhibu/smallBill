@@ -25,7 +25,6 @@
 	export default({
 		data(){
 			return {
-				billUploadImage: "",
 				timeClean: "",
 			}
 		},
@@ -63,6 +62,17 @@
 			showImage(){
 				clearTimeout(this.timeClean);//clear双击中的第一次单击事件。
 				console.log("这是双击事件")
+			}
+		},
+		props: {
+			billUploadImage: {
+				type: String,
+			}
+		},
+		mounted(){
+			console.log(this.billUploadImage);
+			if(!this.billUploadImage == ""){
+				this.billUploadImage = "/api" + this.billUploadImage;
 			}
 		}
 	})

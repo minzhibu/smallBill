@@ -66,7 +66,7 @@
 					<div style="width: 34%; display: inline-block;">
 						<upload-image
 							@upload_image="upLoadImage"
-							:billUploadImage="user.imgAddress"></upload-image>
+							:UploadImage="user.imgAddress"></upload-image>
 					</div>
 				</span>
 				<span class="authority-operating-box-right">
@@ -105,7 +105,8 @@
 						<user-role-list
 							@close-dialog="closeDialog"
 							@commit-dialog="commitDialog"
-							@commit-select-role="commitSelectRole">
+							@commit-select-role="commitSelectRole"
+							:roles="user.roles">
 						</user-role-list>
 					</div>
 				</el-dialog>
@@ -144,19 +145,23 @@
 			},
 			//图片
 			upLoadImage(image){
-				console.log(image);
 				this.$emit("upload-image",image);
 			},
 			commitSelectRole(selectRoleNameList){
-				console.log(selectRoleNameList);
 				this.userRole = "";
 				for(let i = 0; i < selectRoleNameList.length; i++){
 					this.userRole += selectRoleNameList[i] + ",";
 				}
 			},
 			openDialog(){
-				console.log(this.user.id);
 				this.dialogTableVisible = true
+			},
+			reUserRoleName(){
+				let result = "";
+				for(let i = 0; i < this.role.length; i++) {
+					result += this.role[i].roleInformation.roleName + ",";
+				}
+				this.userRole = result;
 			}
 		},
 		components: {
@@ -166,10 +171,21 @@
 		props: {
 			user: {
 				type: Object,
+			},
+			role: {
+				type: Array
 			}
 		},
 		computed: {
 		},
+		mounted() {
+			this.reUserRoleName();
+		},
+		watch:{
+			role: function(){
+				this.reUserRoleName();
+			}
+		}
 	}
 </script>
 

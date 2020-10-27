@@ -26,6 +26,7 @@
 		data(){
 			return {
 				timeClean: "",
+				billUploadImage: ""
 			}
 		},
 		methods: {
@@ -65,14 +66,27 @@
 			}
 		},
 		props: {
-			billUploadImage: {
+			UploadImage: {
 				type: String,
 			}
 		},
 		mounted(){
-			console.log(this.billUploadImage);
-			if(!this.billUploadImage == ""){
-				this.billUploadImage = "/api" + this.billUploadImage;
+			console.log(this.UploadImage);
+			if(!this.UploadImage == ""){
+				this.billUploadImage = "/api" + this.UploadImage;
+			}
+		},
+		components:{
+			
+		},
+		watch:{
+			UploadImage: function(){
+				if(this.UploadImage != ""){
+					this.billUploadImage = "/api" + this.UploadImage;
+				}else{
+					this.billUploadImage = "";
+				}
+				
 			}
 		}
 	})

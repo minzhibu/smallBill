@@ -32,3 +32,10 @@ export function userDelete(id){
 		method: 'delete',
 	})
 }
+//根据用户id查询角色
+export function selectByIdToRole(id){
+	return request({
+		url: '/user/selectByIdToRole/' + id,
+		method: 'get'
+	})
+}

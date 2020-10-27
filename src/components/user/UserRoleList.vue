@@ -136,17 +136,34 @@
 					}
 				}
 				return true;
+			},
+			reflashSelect(){
+				this.selectRoles = {};
+				this.selectRolesName = {};
+				for(let i = 0; i < this.roles.length; i++) {
+					this.$set(this.selectRoles,this.roles[i].roleId,true);
+					this.$set(this.selectRolesName,this.roles[i].roleInformation.roleName,true);
+				}
 			}
 		},
 		components: {
 			BillPage,
 		},
 		mounted(){
+			this.reflashSelect();
 		},
 		props: { 
+			roles: {
+				type: Array
+			}
 		},
 		created(){
 			this.clickPage(1);
+		},
+		watch: {
+			roles: function(){
+				this.reflashSelect();
+			}
 		}
 	}
 </script>

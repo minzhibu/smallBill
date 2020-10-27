@@ -12,6 +12,7 @@
 			v-if="isShowOperation">
 			<user-operation
 				:user="user"
+				:role="user.roles"
 				@upload-image="uploadImage"
 				@select-role="selectRole"
 				@user-commit="userCommit">
@@ -23,7 +24,7 @@
 <script>
 	import UserList from '@/components/user/UserList.vue';
 	import UserOperation from '@/components/user/UserOperation.vue';
-	import {selectList,userInsert,userUpdate,userDelete} from '@/api/user/UserManagementApi.js';	
+	import {selectList,userInsert,userUpdate,userDelete,selectByIdToRole} from '@/api/user/UserManagementApi.js';	
 	export default{
 		data(){
 			return {
@@ -36,7 +37,7 @@
 					password: '',
 					imgAddress: '',
 					state: '',
-					
+					roles: '',
 				},
 				selectRoleIds: [],
 				isShowOperation: false,
@@ -61,6 +62,7 @@
 				this.user.imgAddress = "";
 				this.user.state = "";
 				this.selectRoleIds = [];
+				this.user.roles = [];
 			},
 			//上传图片
 			uploadImage(image){
@@ -116,13 +118,18 @@
 				}
 			},
 			updateUser(user){
-				this.isShowOperation = true;
-				this.user.id = user.id;
-				this.user.userName = user.userName;
-				this.user.accountNumber = user.accountNumber;
-				this.user.password =user.password;
-				this.user.imgAddress = user.imgAddress;
-				this.user.state = user.state;
+				console.log(user.id);
+				selectByIdToRole(user.id).then(response => {
+						console.log(response);
+						this.isShowOperation = true;
+						this.user.roles = response.data.data;
+						this.user.id = user.id;
+						this.user.userName = user.userName;
+						this.user.accountNumber = user.accountNumber;
+						this.user.password =user.password;
+						this.user.imgAddress = user.imgAddress;
+						this.user.state = user.state;
+				})
 			}
 		},
 		components: {

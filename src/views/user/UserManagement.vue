@@ -6,7 +6,8 @@
 			:pageObject="pageObject"
 			@add-user="addUser"
 			@click-page="clickPage"
-			@update-user="updateUser">
+			@update-user="updateUser"
+			@delete-user="deleteUser">
 		</user-list>
 		<template
 			v-if="isShowOperation">
@@ -51,7 +52,7 @@
 				})
 			},
 			clickPage(page){
-				this.selectByPage(page,2);
+				this.selectByPage(page,6);
 			},
 			addUser(){
 				this.isShowOperation = true;
@@ -66,12 +67,10 @@
 			},
 			//上传图片
 			uploadImage(image){
-				console.log(image);
 				this.user.imgAddress = image;
 			},
 			selectRole(selectRoleId){
 				this.selectRoleIds = selectRoleId;
-				console.log(this.selectRoleIds);
 			},
 			userCommit(){
 				if(!this.user.imgAddress){
@@ -101,26 +100,23 @@
 				}
 				let promise;
 				//新建
-				console.log(data);
 				if(this.user.id == ''){
 					promise = userInsert(data);
 				//修改	
 				}else{
-					promise = userUpdate(data);
+					promise = userUpdate(this.user.id,data);
 				}
 				if(promise != null){
 					promise.then(response => {
-						console.log(response);
-						alert("新建成功");
-						clickPage(1);
-						isShowOperation = false;
+						alert("操作成功");
+						this.clickPage(1);
+						this.isShowOperation = false;
 					})
 				}
 			},
+			//更新
 			updateUser(user){
-				console.log(user.id);
 				selectByIdToRole(user.id).then(response => {
-						console.log(response);
 						this.isShowOperation = true;
 						this.user.roles = response.data.data;
 						this.user.id = user.id;
@@ -130,6 +126,13 @@
 						this.user.imgAddress = user.imgAddress;
 						this.user.state = user.state;
 				})
+			},
+			//删除
+			deleteUser(id){
+				userDelete(id).then(response => {
+					alert("操作成功");
+					this.clickPage(1);
+				})
 			}
 		},
 		components: {
@@ -137,7 +140,7 @@
 			UserOperation
 		},
 		created(){
-			this.selectByPage(1,2);
+			this.clickPage(1);
 		},
 	}
 </script>

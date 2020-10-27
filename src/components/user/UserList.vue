@@ -77,12 +77,14 @@
 				this.$emit('update-user',user);
 			},
 			//刪除
-			deleteUser(index){
-				
+			deleteUser(id){
+				this.$emit('delete-user',id);
 			},
+			//分页查询
 			clickPage(page){
 				this.$emit("click-page",page);
 			},
+			//保存
 			addUser(){
 				this.$emit("add-user");
 			}

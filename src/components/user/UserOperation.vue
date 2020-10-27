@@ -156,12 +156,16 @@
 			openDialog(){
 				this.dialogTableVisible = true
 			},
+			//切换用户时调用该方法，绑定用户的角色
 			reUserRoleName(){
 				let result = "";
+				let selectRoleId = [];
 				for(let i = 0; i < this.role.length; i++) {
+					selectRoleId.push(this.role[i].roleId);
 					result += this.role[i].roleInformation.roleName + ",";
 				}
 				this.userRole = result;
+				this.commitDialog(selectRoleId);
 			}
 		},
 		components: {

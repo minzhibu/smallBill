@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import {getToken} from '@/utils/auth.js'
 
 Vue.use(VueRouter)
 
@@ -54,8 +55,10 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  console.log(to);
-	console.log(from);
-	next();
+	let isAuthenticated = getToken();
+	console.log(isAuthenticated);
+	//如果用户未验证身份将会跳转到登录页面
+	if (to.name !== 'login' && !isAuthenticated) next({ name: 'login' })
+	  else next()
 })
 export default router

@@ -5,12 +5,8 @@
 </template>
 
 <script>
-import BillHeader from '@/components/common/BillHeader.vue'
 export default {
   name: 'app',
-  components: {
-		BillHeader,
-  },
 }
 </script>
 

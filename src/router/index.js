@@ -38,6 +38,11 @@ Vue.use(VueRouter)
 				]
 	},
 	{
+		path: '/login',
+		name: 'login',
+		component: () => import('@/views/Login.vue'),
+	},
+	{
 		path: '*',
 		component: Home,
 	}
@@ -48,5 +53,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
+router.beforeEach((to, from, next) => {
+  console.log(to);
+	console.log(from);
+	next();
+})
 export default router

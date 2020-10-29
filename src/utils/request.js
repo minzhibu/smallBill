@@ -10,9 +10,6 @@ const service = axios.create({
 // 添加请求拦截器
 service.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
-		if(config.url.indexOf('login') != -1){
-			return config;
-		}
 		config.headers.Authorization = getToken();
     return config;
   }, function (error) {
@@ -20,14 +17,14 @@ service.interceptors.request.use(function (config) {
     return Promise.reject(error);
 });
 service.interceptors.response.use(response => {
-	if(response.config.url.indexOf('login')){
+	if(response.config.url.indexOf('login/user') != -1){
 		return response;
 	}
-	console.log(response.data.code);
 	if(response.data.code == "401"){
 		alert("当前账号未登录!")
 		router.push({path: '/login'});
+	}else{
+			return response;
 	}
-	return response;
 })
 export default service

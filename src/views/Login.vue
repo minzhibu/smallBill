@@ -52,7 +52,6 @@
 						password: this.password
 					}
 					loginToUser(data).then(response => {
-						console.log(response);
 						if(response.data.code == '401'){
 							alert("账号密码错误!");
 						}else if(response.data.code == '200'){

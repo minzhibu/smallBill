@@ -8,3 +8,16 @@ export function loginToUser(data){
 		data: data
 	})
 }
+export function loginToToken(){
+	return request({
+		url: "/login/token",
+		method: "post"
+	})
+}
+export function selectUserIdToAuthority(data){
+	return request({
+		url: "/user/selectUserIdToAuthority",
+		method: "post",
+		data: data
+	})
+}

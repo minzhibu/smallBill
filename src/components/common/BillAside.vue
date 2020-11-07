@@ -53,75 +53,6 @@
 	 export default {
 		 data :function() {
 			 return {
-					asideDatas : [
-						{
-							jurisdictionName : "首页",
-							isShow : false,
-							labelName : "el-icon-edit",
-							link : "/",
-							childs: [
-							]
-						},
-						{
-							jurisdictionName : "账号管理",
-							isShow : false,
-							labelName : "el-icon-edit",
-							link : "/",
-							childs: [
-								{
-									jurisdictionName: "用户管理",
-									labelName : "el-icon-edit",
-									link : "/user",
-								},
-								{
-									jurisdictionName: "角色管理",
-									labelName : "el-icon-edit",
-									link : "/role",
-								},
-								{
-									jurisdictionName: "权限管理",
-									labelName : "el-icon-edit",
-									link : "/jurisdiction",
-								}
-							]
-						},
-						{
-							jurisdictionName : "账单管理",
-							isShow : false,
-							labelName : "el-icon-edit",
-							link : "/",
-							childs: [
-								{
-									jurisdictionName: "个人账单",
-									labelName : "el-icon-edit",
-									link : "/personalBill",
-								},
-								{
-									jurisdictionName: "团体账单",
-									labelName : "el-icon-edit",
-									link : "/publicBill",
-								}
-							]
-						},
-						{
-							jurisdictionName : " 统计",
-							isShow : false,
-							labelName : "el-icon-edit",
-							link : "/",
-							childs: [
-								{
-									jurisdictionName: "个人统计",
-									labelName : "el-icon-edit",
-									link : "/",
-								},
-								{
-									jurisdictionName: "团体统计",
-									labelName : "el-icon-edit",
-									link : "/",
-								}
-							]
-						},
-					],
 					billAsideStyle : {
 						height: '200px'
 					},
@@ -177,6 +108,11 @@
 			},
 			mounted(){
 				this.initIsShows();
+			},
+			props: {
+				asideDatas: {
+					type: Array
+				}
 			}
 	  }
 </script>

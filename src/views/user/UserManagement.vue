@@ -109,7 +109,7 @@
 				if(promise != null){
 					promise.then(response => {
 						alert("操作成功");
-						this.clickPage(1);
+						this.clickPage(1); 
 						this.isShowOperation = false;
 					})
 				}

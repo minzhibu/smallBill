@@ -4,7 +4,8 @@
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
 		<el-container>
 		  <el-aside width="220px">
-				<bill-aside></bill-aside>
+				<bill-aside
+					:asideDatas="asideAuthority"></bill-aside>
 			</el-aside>
 		  <el-container>
 		    <el-header style="background-color: #605ca8;height: 50px;">
@@ -32,18 +33,19 @@ export default {
   },
 	created() {
 		loginToToken().then(response => {
-			let user = response.data.data;
+			this.user = response.data.data;
+			this.$store.commit("updateUser",this.user);
 			let data = {
-				id: user.id,
-				userName: user.userName,
-				accountNumber: user.accountNumber,
-				password: user.password,
-				imgAddress: user.imgAddress,
-				state: user.state,
+				id: this.user.id,
+				userName: this.user.userName,
+				accountNumber: this.user.accountNumber,
+				password: this.user.password,
+				imgAddress: this.user.imgAddress,
+				state: this.user.state,
 			}
-			return selectUserIdToAuthority(user);
+			return selectUserIdToAuthority(this.user);
 		}).then(response => {
-			console.log(response);
+			this.asideAuthority = response.data.data;
 		})
 	},
 	data(){

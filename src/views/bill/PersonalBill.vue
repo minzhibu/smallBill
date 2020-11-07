@@ -5,25 +5,30 @@
 				<h3 >个人账单</h3> 
 			</div>
 			<div class="bill-main">
-				<el-input class="myInput-left" placeholder="账单名称" v-model="publicBillMain.billName">
-				    <template slot="prepend">
-							<i class="el-icon-edit"></i>
-						</template>
+				<el-input 
+					class="myInput-left" 
+					placeholder="账单名称" 
+					v-model="personalBillMain.billName">
+				  <template 
+						slot="prepend">
+						<i 
+							class="el-icon-edit"></i>
+					</template>
 				</el-input>
-				<el-input class="myInput-right" placeholder="购买时间" v-model="publicBillMain.createDate" suffix-icon="el-icon-date">
-				    <template slot="prepend">
-							<i class="el-icon-edit"></i>
-						</template>
-				</el-input>
-				<el-input class="myInput-left" placeholder="标签" v-model="publicBillMain.label">
-				    <template slot="prepend">
-							<i class="el-icon-edit"></i>
-						</template>
+				<el-input 
+					class="myInput-left" 
+					placeholder="标签" 
+					v-model="personalBillMain.label">
+					<template slot="prepend">
+						<i class="el-icon-edit"></i>
+					</template>
 				</el-input>
 			</div>
-			<bill-table @totle-amout="totleAmout"  :datas="publicBillFroms"></bill-table>
+			<bill-table 
+				@totle-amout="totleAmout"  
+				:datas="personalBillFrom"></bill-table>
 			<el-row class="bill-button">
-			  <el-button type="primary">提交</el-button>
+			  <el-button type="primary" @click="commit">提交</el-button>
 			  <el-button type="info" @click="clear">清空</el-button>
 			</el-row>
 		</div>
@@ -36,14 +41,12 @@
 		data(){
 			return {
 				input1: "1",
-				publicBillMain : {
+				personalBillMain : {
 				  billName: "",
-				  createDate : "",
 				  label: "",
-				  users: "",
 				  totleAmout: 0
 				},
-				publicBillFroms : [{
+				personalBillFrom : [{
 				  name : "",
 				  price : "",
 				  amount : "",
@@ -57,18 +60,18 @@
 		methods: {
 		  //提交
 		  commit() {
-		    
+		    console.log(this.personalBillMain);
+				console.log(this.personalBillFrom);
 		  },
 		  //清空
 		  clear() {
-		    this.publicBillMain = {
+		    this.personalBillMain = {
 		      billName: "",
-		      createName : "",
 		      label: "",
 		      users: "",
 		      totleAmout: 0
 		    }
-		    this.publicBillFroms = [{
+		    this.personalBillFrom = [{
 		      name : "",
 		      price : "",
 		      amount : "",
@@ -76,8 +79,8 @@
 		    }]
 		  },
 			totleAmout(result){
-				this.publicBillMain.totleAmout=result;
-			},
+				this.personalBillMain.totleAmout=result;
+			}, 
 		}
 	}
 </script>

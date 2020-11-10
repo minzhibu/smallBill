@@ -37,6 +37,7 @@
 
 <script>
 	import BillTable from '@/components/common/BillTable.vue'
+	import {personalBillInsert} from '@/api/bill/PersonalBill.js';
 	export default {
 		data(){
 			return {
@@ -62,6 +63,15 @@
 		  commit() {
 		    console.log(this.personalBillMain);
 				console.log(this.personalBillFrom);
+				let data = {
+					label: this.personalBillMain.label,
+					totalAmout: this.personalBillMain.totleAmout,
+					billName: this.personalBillMain.billName,
+					userId: this.$store.state.user.id,
+					personalBillFromList: this.personalBillFrom
+				}
+				console.log(data);
+				personalBillInsert(data);
 		  },
 		  //清空
 		  clear() {

@@ -12,7 +12,6 @@ export default new Vuex.Store({
 		updateUser(state,nowUser){
 			state.user = nowUser;
 			console.log(nowUser);
-			
 		}
   },
   actions: {

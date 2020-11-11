@@ -10,21 +10,18 @@
 							<i class="el-icon-edit"></i>
 						</template>
 				</el-input>
-				<el-input class="myInput-right" placeholder="购买时间" v-model="publicBillMain.createDate" suffix-icon="el-icon-date">
-				    <template slot="prepend">
-							<i class="el-icon-edit"></i>
-						</template>
-				</el-input>
-				<el-input class="myInput-left" placeholder="关联人" v-model="publicBillMain.users">
-				    <template slot="prepend">
-							<i class="el-icon-edit"></i>
-						</template>
-				</el-input>
 				<el-input class="myInput-right" placeholder="标签" v-model="publicBillMain.label">
 				    <template slot="prepend">
 							<i class="el-icon-edit"></i>
 						</template>
 				</el-input>
+				<div @click="openDialog">
+					<el-input class="myInput-left" placeholder="关联人" v-model="userName" >
+					    <template slot="prepend">
+								<i class="el-icon-edit"></i>
+							</template>
+					</el-input>
+				</div>
 			</div>
 			<bill-table @totle-amout="totleAmout"  :datas="publicBillFroms"></bill-table>
 			<el-row class="bill-button">
@@ -32,11 +29,26 @@
 			  <el-button type="info" @click="clear">清空</el-button>
 			</el-row>
 		</div>
+		
+		<el-dialog
+			title="用户" 
+			width="30%" 
+			:visible.sync="dialogTableVisible">
+			<div style="height: 400px">
+				<user-list
+					@close-dialog="closeDialog"
+					@commit-dialog="commitDialog"
+					@commit-select-user="commitSelectUser"
+					:user="user">
+				</user-list>
+			</div>
+		</el-dialog>
 	</div>
 </template>
 
 <script>
 	import BillTable from '@/components/common/BillTable.vue'
+	import UserList from '@/components/bill/UserList.vue'
 	export default {
 		data(){
 			return {
@@ -54,10 +66,14 @@
 				  amount : "",
 				  label : ""
 				}],
+				dialogTableVisible: false,
+				user: {},
+				userName: ""
 			}
 		},
 		components :{
-			BillTable 
+			BillTable,
+			UserList
 		},
 		methods: {
 		  //提交
@@ -83,6 +99,25 @@
 			totleAmout(result){
 				this.publicBillMain.totleAmout=result;
 			},
+			closeDialog(){
+				dialogTableVisible = false;
+			},
+			commitDialog(selectUserId){
+				this.publicBillMain.users = "";
+				for(let i = 0; i < selectUserId.length; i++) {
+					this.publicBillMain.users += selectUserId[i];
+				}
+			},
+			commitSelectUser(selectUserNames){
+				this.userName = "";
+				for(let i = 0; i < selectUserNames.length; i++) {
+					this.userName += selectUserNames[i];
+				}
+			},
+			openDialog(){
+				console.log("???");
+				this.dialogTableVisible = true;
+			}
 		}
 	}
 </script>

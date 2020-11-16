@@ -1,32 +1,14 @@
 import request from '@/utils/request.js'
 
-export function jurisdictionList(){
+//保存个人账单
+export function publicBillInsert(data){
+	console.log(data);
 	return request({
-		url: "/jurisdictionInformation/",
-		method: "get",
-	})
-}
-
-export function jurisdictionInsert(data){
-	return request({
-		url: "/jurisdictionInformation/",
+		url: "/publicBill/",
 		method: "post",
 		data: data
 	})
 }
 
-export function jurisdictionUpdate(id,data){
-	return request({
-		url: "/jurisdictionInformation/" + id,
-		method: "put",
-		data: data
-	})
-}
 
-export function jurisdictionDelete(id){
-	return request({
-		url: "/jurisdictionInformation/" + id,
-		method: "delete"
-	})
-}
 

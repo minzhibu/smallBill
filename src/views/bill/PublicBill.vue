@@ -25,7 +25,7 @@
 			</div>
 			<bill-table @totle-amout="totleAmout"  :datas="publicBillFroms"></bill-table>
 			<el-row class="bill-button">
-			  <el-button type="primary">提交</el-button>
+			  <el-button type="primary" @click="commit">提交</el-button>
 			  <el-button type="info" @click="clear">清空</el-button>
 			</el-row>
 		</div>
@@ -49,15 +49,15 @@
 <script>
 	import BillTable from '@/components/common/BillTable.vue'
 	import UserList from '@/components/bill/UserList.vue'
+	import {publicBillInsert} from '@/api/bill/PublicBill.js'
 	export default {
 		data(){
 			return {
 				input1: "1",
 				publicBillMain : {
 				  billName: "",
-				  createDate : "",
 				  label: "",
-				  users: "",
+				  users: [],
 				  totleAmout: 0
 				},
 				publicBillFroms : [{
@@ -78,7 +78,27 @@
 		methods: {
 		  //提交
 		  commit() {
-		    
+				let publicBillMain = this.publicBillMain;
+				if(publicBillMain.billName == ""){
+					alert("账单名称不能为空!");
+				}
+				if(publicBillMain.label == ""){
+					alert("标签不能为空!");
+				}
+				if(publicBillMain.users.length == 0){
+					alert("选择的用户不能为空!");
+				}
+		    let data = {
+					billName: publicBillMain.billName,
+					lable: publicBillMain.label,
+					totleAmout: publicBillMain.totleAmout,
+					userIds: publicBillMain.users,
+					publicBillFromList: this.publicBillFroms
+				}
+				console.log(data);
+				publicBillInsert(data).then(response => {
+					console.log(response);
+				})
 		  },
 		  //清空
 		  clear() {
@@ -100,22 +120,19 @@
 				this.publicBillMain.totleAmout=result;
 			},
 			closeDialog(){
-				dialogTableVisible = false;
+				this.dialogTableVisible = false;
 			},
 			commitDialog(selectUserId){
-				this.publicBillMain.users = "";
-				for(let i = 0; i < selectUserId.length; i++) {
-					this.publicBillMain.users += selectUserId[i];
-				}
+				this.publicBillMain.users = selectUserId;
+				this.dialogTableVisible = false;
 			},
 			commitSelectUser(selectUserNames){
 				this.userName = "";
 				for(let i = 0; i < selectUserNames.length; i++) {
-					this.userName += selectUserNames[i];
+					this.userName += selectUserNames[i] + ",";
 				}
 			},
 			openDialog(){
-				console.log("???");
 				this.dialogTableVisible = true;
 			}
 		}

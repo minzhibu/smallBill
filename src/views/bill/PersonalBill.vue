@@ -71,7 +71,9 @@
 					personalBillFromList: this.personalBillFrom
 				}
 				console.log(data);
-				personalBillInsert(data);
+				personalBillInsert(data).then(response => {
+					console.log(response);
+				});
 		  },
 		  //清空
 		  clear() {
